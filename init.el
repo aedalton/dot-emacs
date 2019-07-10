@@ -10,17 +10,22 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(markdown-command "/usr/local/bin/pandoc")
- '(package-selected-packages
-   (quote
-    (company-jedi php-mode sphinx-doc markdown-mode handlebars-mode go-mode yasnippet-classic-snippets yasnippet flycheck crux web-beautify flymd web-mode json-mode w3 py-autopep8 color-theme ag terraform-mode fill-column-indicator projectile aggressive-indent))))
+ '(package-selected-packages (quote (srefactor python-docstring company-jedi php-mode
+                                               sphinx-doc markdown-mode handlebars-mode go-mode
+                                               yasnippet-classic-snippets yasnippet flycheck
+                                               crux web-beautify flymd web-mode json-mode
+                                               w3 py-autopep8 color-theme ag terraform-mode
+                                               fill-column-indicator projectile aggressive-indent))))
 
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/")
+             t)
 
-(add-hook 'python-mode-hook (lambda ()
-                              (require 'sphinx-doc)
-                              (sphinx-doc-mode t)))
+(add-hook 'python-mode-hook
+          (lambda ()
+            (require 'sphinx-doc)
+            (sphinx-doc-mode t)))
 
 ;; bash indents
 '(sh-basic-offset 2)
@@ -33,7 +38,8 @@
 
 ;; Visual Directory Tree
 (require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
+(global-set-key [f8]
+                'neotree-toggle)
 
 ;; Default FCI
 (require 'fill-column-indicator)
@@ -47,22 +53,29 @@
 
 ;; Unbind Pesky Sleep Button
 (global-unset-key [(control z)])
-(global-unset-key [(control x)(control z)])
+(global-unset-key [(control x)
+                   (control z)])
 ;; Windows Style Undo
-(global-set-key [(control z)] 'undo)
+(global-set-key [(control z)]
+                'undo)
 
 ;; Automatically clean up bad whitespace
 (setq whitespace-action '(auto-cleanup))
 ;; Only show bad whitespace
-(setq whitespace-style '(trailing space-before-tab indentation empty space-after-tab))
+(setq whitespace-style '(trailing space-before-tab indentation empty
+                                  space-after-tab))
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'projectile)
-(global-set-key [f7] 'projectile-mode)
-(global-set-key (kbd "C-h C-f") 'find-function)
-(global-set-key (kbd "C-t") 'projectile-find-file)
+(global-set-key [f7]
+                'projectile-mode)
+(global-set-key (kbd "C-h C-f")
+                'find-function)
+(global-set-key (kbd "C-t")
+                'projectile-find-file)
 
-(global-set-key (kbd "C-x _") 'minimize-window)
+(global-set-key (kbd "C-x _")
+                'minimize-window)
 
 (defalias 'qrr 'query-replace-regexp)
 
@@ -73,7 +86,8 @@
 
 ;; Ag: Emacs frontend to the silver searcher
 (setq ag-highlight-search t)
-(global-set-key (kbd "C-d") 'ag) ; Alt+a
+(global-set-key (kbd "C-d")
+                'ag) ; Alt+a
 
 ;; ag: to not open a new results window
 ;; (setq ag-reuse-window 't)
@@ -85,50 +99,47 @@
 
 ;; only spaces
 (add-hook 'python-mode-hook
-      (lambda ()
-	(setq indent-tabs-mode nil)
-	(setq python-indent 4)
-	(setq tab-width 4))
-      (untabify (point-min) (point-max)))
+          (lambda ()
+            (setq indent-tabs-mode nil)
+            (setq python-indent 4)
+            (setq tab-width 4))
+          (untabify (point-min)
+                    (point-max)))
 (put 'downcase-region 'disabled nil)
 
 (require 'flymd)
 (defun my-flymd-browser-function (url)
   (let ((process-environment (browse-url-process-environment)))
     (apply 'start-process
-	   (concat "firefox " url)
-	   nil
-	   "/usr/bin/open"
-	   (list "-a" "firefox" url))))
+           (concat "firefox " url)
+           nil
+           "/usr/bin/open"
+           (list "-a" "firefox" url))))
 (setq flymd-browser-open-function 'my-flymd-browser-function)
 
 (setq backup-directory-alist `(("." . "~/.saves")))
 
-(global-set-key [remap move-beginning-of-line] #'crux-move-beginning-of-line)
-(global-set-key (kbd "C-c n") #'goto-char)
+(global-set-key [remap move-beginning-of-line]
+                #'crux-move-beginning-of-line)
+(global-set-key (kbd "C-c n")
+                #'goto-char)
 
 (setq-default indent-tabs-mode nil)
 (put 'upcase-region 'disabled nil)
 
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(font-lock-comment-face ((t (:slant italic :foreground "color-199"))))
-;;  '(font-lock-doc-face ((t (:foreground "color-251")))))
-
 ;; highlighter
 (set-face-attribute 'region nil :background "brightyellow")
 
-(defun toggle-maximize-buffer () "Maximize buffer"
+(defun toggle-maximize-buffer ()
+  "Maximize buffer"
   (interactive)
   (if (= 1 (length (window-list)))
       (jump-to-register '_)
     (progn
       (window-configuration-to-register '_)
       (delete-other-windows))))
-(global-set-key (kbd "C-x p") 'toggle-maximize-buffer)
+(global-set-key (kbd "C-x p")
+                'toggle-maximize-buffer)
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -136,6 +147,19 @@
  ;; If there is more than one, they won't work right.
  )
 
-;; (require 'yasnippet)
-;; (yas/initialize)
-;; (yas/load-directory "~/.emacs.d/snippets")
+(require 'srefactor)
+(require 'srefactor-lisp)
+
+;; OPTIONAL: ADD IT ONLY IF YOU USE C/C++.
+(semantic-mode 1) ;; -> this is optional for Lisp
+
+(define-key c-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+(define-key c++-mode-map (kbd "M-RET") 'srefactor-refactor-at-point)
+(global-set-key (kbd "M-RET o")
+                'srefactor-lisp-one-line)
+(global-set-key (kbd "M-RET m")
+                'srefactor-lisp-format-sexp)
+(global-set-key (kbd "M-RET d")
+                'srefactor-lisp-format-defun)
+(global-set-key (kbd "M-RET b")
+                'srefactor-lisp-format-buffer)
