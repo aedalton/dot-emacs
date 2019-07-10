@@ -23,3 +23,5 @@ url/*
 var/*
 snippets/*/.yas-compiled*
 init_bash.sh
+srecode-map.el
+semanticdb/*
