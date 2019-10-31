@@ -26,6 +26,7 @@
 (require 'init-workflow)
 (require 'init-buffer)
 (require 'init-python)
+(require 'init-flymd)
 
 ;; bash indents
 '(sh-basic-offset 2)
