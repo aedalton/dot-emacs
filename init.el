@@ -10,22 +10,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(markdown-command "/usr/local/bin/pandoc")
- '(package-selected-packages (quote (srefactor python-docstring company-jedi php-mode
-                                               sphinx-doc markdown-mode handlebars-mode go-mode
-                                               yasnippet-classic-snippets yasnippet flycheck
-                                               crux web-beautify flymd web-mode json-mode
-                                               w3 py-autopep8 color-theme ag terraform-mode
-                                               fill-column-indicator projectile aggressive-indent))))
+ '(package-selected-packages
+   (quote
+    (helm-ag go-mode flycheck crux web-beautify flymd json-mode w3 py-autopep8 color-theme ag terraform-mode fill-column-indicator projectile aggressive-indent))))
 
 (require 'package) ;; You might already have this line
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/")
              t)
-
-(add-hook 'python-mode-hook
-          (lambda ()
-            (require 'sphinx-doc)
-            (sphinx-doc-mode t)))
 
 ;; bash indents
 '(sh-basic-offset 2)
@@ -35,11 +27,6 @@
 
 ;; Shift key to move between windows
 (windmove-default-keybindings)
-
-;; Visual Directory Tree
-(require 'neotree)
-(global-set-key [f8]
-                'neotree-toggle)
 
 ;; Default FCI
 (require 'fill-column-indicator)
@@ -58,13 +45,6 @@
 ;; Windows Style Undo
 (global-set-key [(control z)]
                 'undo)
-
-;; Automatically clean up bad whitespace
-(setq whitespace-action '(auto-cleanup))
-;; Only show bad whitespace
-(setq whitespace-style '(trailing space-before-tab indentation empty
-                                  space-after-tab))
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (require 'projectile)
 (global-set-key [f7]
@@ -94,8 +74,6 @@
 
 
 (set-face-attribute 'region nil :background "#666")
-
-(setq py-autopep8-options '("--max-line-length=80"))
 
 ;; only spaces
 (add-hook 'python-mode-hook
@@ -146,3 +124,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+;; Visual Directory Tree
+(require 'neotree)
+(global-set-key [f8]
+                'neotree-toggle)
