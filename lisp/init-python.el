@@ -14,5 +14,8 @@
 
 (setq py-autopep8-options '("--max-line-length=79"))
 
+(require 'py-autopep8)
+(add-hook 'python-mode-hook 'py-autopep8-enable-on-save)
+
 (provide 'init-python)
 ;;; init-python.el ends here

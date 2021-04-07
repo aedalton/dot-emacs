@@ -26,10 +26,12 @@
 (setq ido-everywhere t)
 (ido-mode 1)
 
+
 ;; Ag: Emacs frontend to the silver searcher
+;; (setq helm-ag-use-temp-buffer t)
 (setq ag-highlight-search t)
 (global-set-key (kbd "C-d")
-                'ag) ; Alt+a
+                'helm-ag) ; Alt+a
 
 ;; Ag: uncomment to not open a new results window
 ;; (setq ag-reuse-window 't)
